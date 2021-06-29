@@ -1,0 +1,12 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use IEEE.NUMERIC_STD.ALL;
+use ieee.numeric_bit.rising_edge;
+entity caminho_de_dados is
+	port(
+
+);
+end entity;
+
+architecture arch of caminho_de_dados is
+end arch;

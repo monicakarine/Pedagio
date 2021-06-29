@@ -1,0 +1,18 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+entity compara is
+port(
+     Peso : in std_logic_vector (15 downto 0);
+	  Eixos : in std_logic_vector(3 downto 0);
+     multiplicador:  out std_logic_vector(3 downto 0)
+	  );
+end compara;
+
+architecture comportamental of compara is
+
+begin
+	multiplicador <= x"1" when Peso < std_logic_vector(to_unsigned(900,16));
+	multiplicador <= Eixos when (Peso > std_logic_vector(to_unsigned(20000,16)) or Peso = std_logic_vector(to_unsigned(20000,16)));
+	--saida3 <= '1' when (Peso > std_logic_vector(to_unsigned(900,16)) or Peso = std_logic_vector(to_unsigned(900,16))) and (Peso<std_logic_vector(to_unsigned(20000,16))) else '0'; 
+end comportamental;

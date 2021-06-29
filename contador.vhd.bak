@@ -1,0 +1,23 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.numeric_std.all;
+
+entity contador is
+port(
+		  sinal: in std_logic :=0;
+		  k : in integer :=0;
+		  tempo:  out integer range 0 to 100;
+		  fim  : out std_logic := 0;
+);
+end entity;
+
+architecture rtl of contador is
+--signal resultado : std_logic_vector (15 downto 0);
+begin
+for k in 0 to 100 loop
+				if (tempo > 100) then 
+				fim = '1'; 
+				end if; 
+	tempo := tempo+1; 
+end loop; 
+end rtl;

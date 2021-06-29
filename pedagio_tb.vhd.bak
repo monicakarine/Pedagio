@@ -1,0 +1,76 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.NUMERIC_STD.all;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity tb_pedagio is
+end tb_pedagio;
+
+architecture teste of tb_pedagio is
+component pedagio is
+       port(
+		  RESET   : in    std_logic; -- reset input
+        CLOCK   : in    std_logic; -- clock input
+		  Peso    : in    std_logic_vector (15 downto 0);
+		  Eixos 	 : in    std_logic_vector(3 downto 0);
+		  Cliente: in std_logic;
+		  Botao_Ent: in std_logic;
+		  Pagamento : in std_logic_vector (15 downto 0);
+		  Valor_pd  : out std_logic_vector (15 downto 0);
+		  multiplicador : out std_logic_vector(3 downto 0);
+		  Troco 			 : out std_logic_vector (15 downto 0);
+		  Botao_S 		 : out std_logic
+);
+end component;
+
+signal RESET,CLOCK,Cliente,Botao_Ent,Botao_S: std_logic;
+signal Peso, Pagamento,Valor_pd,Troco : std_logic_vector(15 downto 0); 
+signal Eixos,multiplicador : std_logic_vector(3 downto 0);
+ 
+   -- Clock period definitions
+   constant PERIOD     : time := 20 ns;
+   constant DUTY_CYCLE : real := 0.5;
+   constant OFFSET     : time := 5 ns;
+
+begin
+instancia_pedagio: pedagio port map(RESET => RESET, CLOCK => CLOCK, Cliente => Cliente, Botao_Ent => Botao_Ent, Botao_S => Botao_S, Peso => Peso, Pagamento => Pagamento, Valor_pd=> Valor_pd, Troco => Troco,Eixos =>Eixos, multiplicador=> multiplicador);
+estimulos_proc: process
+begin
+RESET <= '0'; 
+
+Peso <= x"0820"; --2080 kg
+Eixos <= x"2"; 
+wait for 100 ns;
+RESET <= '1';
+wait for 20 ns;
+RESET <= '0'; 
+Peso <= x"53fc" --21500kg
+Eixos <= x"4";
+wait for 100 ns;
+RESET <= '1';
+wait for 20 ns;
+RESET <= '0'; 
+Peso <= x"01ea"; --490 kg
+Eixos <= x"1"; 
+wait for 100 ns;
+RESET <= '1'; 
+wait for 100 ns;
+RESET <= '0'; 
+wait for 100 ns;
+
+end process;
+------------------------------------------------------------------------------------
+----------------- process para gerar o sinal de clock ------------------------------
+------------------------------------------------------------------------------------		
+        PROCESS    -- clock process for clock
+        BEGIN
+            WAIT for OFFSET;
+            CLOCK_LOOP : LOOP
+                CLOCK <= '0';
+                WAIT FOR (PERIOD - (PERIOD * DUTY_CYCLE));
+                CLOCK <= '1';
+                WAIT FOR (PERIOD * DUTY_CYCLE);
+            END LOOP CLOCK_LOOP;
+        END PROCESS;
+	  
+end teste;

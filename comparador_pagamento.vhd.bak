@@ -1,0 +1,17 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use ieee.numeric_std.all;
+
+entity comparador_pagamento is
+port(
+     Valor, Pagamento : in std_logic_vector (15 downto 0);
+	  resultado_comparacao : out std_logic; 
+);
+end entity;
+
+architecture comportamental of comparador_pagamento is
+signal resultado_comparacao : std_logic;
+begin
+resultado_comparacao <= '1' when (Pagamento>Valor or Pagamento = Valor) else '0';
+
+end comportamental;

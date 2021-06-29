@@ -1,0 +1,12 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use IEEE.NUMERIC_STD.ALL;
+use ieee.numeric_bit.rising_edge;
+entity controle is
+	port(
+
+);
+end entity;
+
+architecture arch of controle is
+end arch;
